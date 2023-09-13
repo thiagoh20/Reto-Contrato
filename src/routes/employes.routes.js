@@ -8,6 +8,7 @@ export let rutas=expres.Router();
 
 rutas.post('/resgistrarContrato',controladorContratos.registrarContrato)
 rutas.get('/todosContratos',controladorContratos.todosContratos)
-rutas.get('/buscarContrato:idContrato',controladorContratos.buscarContrato)
-rutas.put('/actualizarContrato:idContrato',controladorContratos.editarContrato)
+rutas.get('/buscarContrato/:idContrato',controladorContratos.buscarContrato)
+rutas.put('/actualizarContrato/:idContrato',controladorContratos.editarContrato)
+rutas.delete('/eliminarContrato/:idContrato',controladorContratos.eliminarContrato)
   

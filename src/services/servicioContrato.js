@@ -17,8 +17,11 @@ import { modeloContrato } from "../models/modeloContrato.js";
         let contratoConsulta=await modeloContrato.findById(idContrato)
         return contratoConsulta
     }
-    async editarContrato(idContrato,datosContrato){
-        return  await modeloContrato.findByIdAndUpdate(idContrato,datosContrato)
+    async editarContrato(idContrato,datosNuevosContrato){
+        return  await modeloContrato.findByIdAndUpdate(idContrato,datosNuevosContrato)
+    }
+    async eliminarContrato(idContrato){
+        return  await modeloContrato.findByIdAndDelete(idContrato)
     }
 
  }

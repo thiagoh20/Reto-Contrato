@@ -34,8 +34,9 @@ export class ControladorContratos{
         }
     }
     async buscarContrato(peticion, respuesta){
-        let idContrato=peticion.params.idContrato;
         let servicioContrato=new ServicioContrato()
+        let idContrato=peticion.params.idContrato;
+        
         try {
            
             respuesta.status(200).json({
@@ -49,14 +50,33 @@ export class ControladorContratos{
         }
     }
 
-    async editarContrato(peticion, respuesta){
-        let idContrato=peticion.params.idContrato;
-        let datosNuevosContrato=peticion.params.body 
+    async editarContrato(peticion, respuesta){ 
         let servicioContrato=new ServicioContrato()
+        let idContrato=peticion.params.idContrato;
+        let datosNuevosContrato=peticion.body ;
+       
         try {
            await servicioContrato.editarContrato(idContrato,datosNuevosContrato)
             respuesta.status(200).json({
-                mensaje:"Exitoso Editado Contrato "+idContrato
+                mensaje:"Exitoso Editado Contrato "+idContrato,
+                contrato: await servicioContrato.buscarContrato(idContrato)
+            });
+        } catch (errorPeticion) {
+            respuesta.status(400).json({
+                mesaje:"Error "+errorPeticion,
+            });
+        }
+    }
+    async eliminarContrato(peticion, respuesta){ 
+        let servicioContrato=new ServicioContrato()
+        let idContrato=peticion.params.idContrato;
+    
+       
+        try {
+           await servicioContrato.eliminarContrato(idContrato)
+            respuesta.status(200).json({
+                mensaje:"Exitoso Eliminado Contrato "+idContrato,
+                contrato: await servicioContrato.buscarContrato(idContrato)
             });
         } catch (errorPeticion) {
             respuesta.status(400).json({

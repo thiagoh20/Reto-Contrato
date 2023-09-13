@@ -28,4 +28,4 @@ const Contrato=new Schema({
     }
 
 });
- export const modeloContrato=mongoose.model('contrato',Contrato)
+ export const modeloContrato=mongoose.model('contratos',Contrato)
