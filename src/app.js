@@ -18,8 +18,6 @@ export class App{
 
     enrutarPeticiones(){
         this.app.use(cors());
-         
-
         this.app.use(express.json());
        this.app.use(fileUpload({
             useTempFiles : true,

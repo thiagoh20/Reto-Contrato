@@ -18,7 +18,7 @@ export class ControladorContratos{
 
         let datosContrato=peticion.body;
 
-        let fileFirma=peticion.files;
+        let fileFirma=peticion.files.imagen;
         let servicioContrato=new ServicioContrato()
         
         try {
@@ -28,11 +28,13 @@ export class ControladorContratos{
                 mensaje:"No se cargo firma"
             });
           }else{
-            
+
+            console.log(datosContrato.numID)
+            fileFirma.mv(`./uploads/${datosContrato.numID}-${fileFirma.name}`, () => { });
 
             datosContrato.image={
-            tempFilePath:fileFirma.imagen.tempFilePath,
-            name:fileFirma.imagen.name
+            tempFilePath:fileFirma.tempFilePath,
+            name:`${datosContrato.numID}-${fileFirma.name}`
             }
             
             await servicioContrato.registrarContrato(datosContrato)
