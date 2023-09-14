@@ -3,7 +3,8 @@ import { modeloContrato } from "../models/modeloContrato.js";
  export class ServicioContrato{
 
     constructor(){}
-    
+
+   
     async registrarContrato(datosContrato){
         let contratoNuevo=new modeloContrato(datosContrato)
         return await contratoNuevo.save()

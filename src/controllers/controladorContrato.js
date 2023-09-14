@@ -4,16 +4,45 @@ import {ServicioContrato} from "../services/servicioContrato.js"
 export class ControladorContratos{
     constructor(){}
 
+    async registraFirma(req, res){
+     
+        console.log(req.body);
+
+        if (!req.files || Object.keys(req.files).length === 0) {
+          return res.status(400).send('No files were uploaded.');
+        }
+       
+    }
+
     async registrarContrato(peticion, respuesta){
+
         let datosContrato=peticion.body;
+
+        let fileFirma=peticion.files;
         let servicioContrato=new ServicioContrato()
+        
         try {
+
+            if (!peticion.files || Object.keys(peticion.files).length === 0) {
+            return respuesta.status(400).json({
+                mensaje:"No se cargo firma"
+            });
+          }else{
+            
+
+            datosContrato.image={
+            tempFilePath:fileFirma.imagen.tempFilePath,
+            name:fileFirma.imagen.name
+            }
+            
             await servicioContrato.registrarContrato(datosContrato)
             respuesta.status(200).json({
                 mensaje:"Dato Guardado!!"
             });
+          }
+            
         } catch (errorPeticion) {
-            respuesta.status(400).json({
+            respuesta.status(500).json({
                 mesaje:"Error"+errorPeticion,
             });
         }
@@ -44,7 +73,7 @@ export class ControladorContratos{
                 contrato: await servicioContrato.buscarContrato(idContrato)
             });
         } catch (errorPeticion) {
-            respuesta.status(400).json({
+            respuesta.status(404).json({
                 mesaje:"Error "+errorPeticion,
             });
         }
@@ -62,7 +91,7 @@ export class ControladorContratos{
                 contrato: await servicioContrato.buscarContrato(idContrato)
             });
         } catch (errorPeticion) {
-            respuesta.status(400).json({
+            respuesta.status(404).json({
                 mesaje:"Error "+errorPeticion,
             });
         }
@@ -79,9 +108,10 @@ export class ControladorContratos{
                 contrato: await servicioContrato.buscarContrato(idContrato)
             });
         } catch (errorPeticion) {
-            respuesta.status(400).json({
+            respuesta.status(500).json({
                 mesaje:"Error "+errorPeticion,
             });
         }
     }
+   
 }

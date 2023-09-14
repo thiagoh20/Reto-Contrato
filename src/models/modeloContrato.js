@@ -19,13 +19,13 @@ const Contrato=new Schema({
         type:String,
         
     },
-    firma:{
-        type:[String],
+    image:{
+        tempFilePath:String,
+        name:String
         
     },
-    fecha:{
-        type:Date,
-    }
+},{
+    timestamps:true
 
 });
  export const modeloContrato=mongoose.model('contratos',Contrato)
